@@ -41,7 +41,7 @@ def scrap_book(url):
 
     # A rendre dynamique
     formatted_title = title.replace(" ", "-")
-    link = f'https://books.toscrape.com/catalogue/{formatted_title}' + image['src'].replace("../..", "")
+    link = f'https://books.toscrape.com' + image['src'].replace("../..", "")
 
     # On retourne toutes les informations dans un dictionnaire que l'on rempli en lors du return en assigant une clé à un élément
     result =  {
@@ -49,8 +49,8 @@ def scrap_book(url):
         "product_page_url": url,
         "universal_product_code": rows[0].find('td').text,
         "product_description": description_produit,
-        "price_including_tax": liste_td[3].text.replace("Â"," "),
-        "price_excluding_tax": liste_td[2].text.replace("Â"," "), 
+        "price_including_tax": liste_td[3].text.replace("Â",""),
+        "price_excluding_tax": liste_td[2].text.replace("Â",""), 
         "Availability": liste_td[5].text,
         "review_rating": classes[1],
         "category": liste_li[2].text.strip(),

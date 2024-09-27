@@ -1,9 +1,12 @@
-from step_1 import scrap_book
+import csv
+import os
+
 from bs4 import BeautifulSoup
 from requests import get
-import csv
 
-def scrap_category(url):
+from step_1 import scrap_book
+
+def scrap_category(url, has_images=False):
     
     #Création fichier CSV/écriture en-tete
     
@@ -31,6 +34,12 @@ def scrap_category(url):
             #Utilisation de la fonction scrap_book(url) de la step_1 pour obtenir les informations de chaque livre
             for url in liste_url_livre:
                 books_data = scrap_book(url)
+                if has_images:
+                    image_data = get(books_data['image_url']).content
+                    print(books_data['image_url'])
+                    with open(f'images/{books_data['title']}.{books_data['image_url'].rsplit('.', 1)[1]}', 'wb') as image:
+                        image.write(image_data)
+
                 writer.writerow(books_data)     
             
             #Vérification d'un bouton "next"
