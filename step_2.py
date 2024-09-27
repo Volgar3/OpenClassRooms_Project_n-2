@@ -6,7 +6,10 @@ import csv
 def scrap_category(url):
     
     #Création fichier CSV/écriture en-tete
-    with open("scrap.csv", "w", encoding="utf-8", newline='') as scrap_csv:
+    
+    cat_name = url.split('/')[-2]
+    print(cat_name)
+    with open(cat_name + ".csv", "w", encoding="utf-8", newline='') as scrap_csv:
         en_tete = ["title", "product_page_url", "universal_product_code", "product_description", "price_including_tax",
                    "price_excluding_tax", "Availability", "review_rating", "category", "image_url"]
         writer = csv.DictWriter(scrap_csv, fieldnames=en_tete)
