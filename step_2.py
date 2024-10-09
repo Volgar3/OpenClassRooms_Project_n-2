@@ -9,14 +9,6 @@ from step_1 import scrap_book
 def scrap_category(url, has_images=False):
     
     #Création fichier CSV/écriture en-tete
-    
-    cat_name = url.split('/')[-2]
-    print(cat_name)
-    with open(cat_name + ".csv", "w", encoding="utf-8", newline='') as scrap_csv:
-        en_tete = ["title", "product_page_url", "universal_product_code", "product_description", "price_including_tax",
-                   "price_excluding_tax", "Availability", "review_rating", "category", "image_url"]
-        writer = csv.DictWriter(scrap_csv, fieldnames=en_tete)
-        writer.writeheader()
 
         while url:
             response = get(url)
@@ -39,8 +31,7 @@ def scrap_category(url, has_images=False):
                     print(books_data['image_url'])
                     with open(f'images/{books_data['title']}.{books_data['image_url'].rsplit('.', 1)[1]}', 'wb') as image:
                         image.write(image_data)
-
-                writer.writerow(books_data)     
+                #writer.writerow(books_data)     
             
             #Vérification d'un bouton "next"
             li = soup.find('li', class_='next')

@@ -1,8 +1,9 @@
-from step_2 import scrap_category
-from bs4 import BeautifulSoup
-from requests import get
 import csv
 
+from bs4 import BeautifulSoup
+from requests import get
+
+from step_2 import scrap_category
 
 def scrap_categories(url, has_images=False):
     
@@ -27,9 +28,8 @@ def scrap_categories(url, has_images=False):
         scrap_category(complete_url, has_images=has_images)
             
 
+ 
     return  
-    
-    
 
 if __name__ == '__main__':
     scrap_categories("https://books.toscrape.com/catalogue/category/books_1/index.html")
