@@ -8,8 +8,6 @@ from step_1 import scrap_book
 
 def scrap_category(url, has_images=False):
     
-    #Création fichier CSV/écriture en-tete
-
         while url:
             response = get(url)
             soup = BeautifulSoup(response.text, "html.parser")
@@ -23,16 +21,15 @@ def scrap_category(url, has_images=False):
                     livre_url = 'https://books.toscrape.com/catalogue/' + liste_a['href'].replace('../../../', '')
                     liste_url_livre.append(livre_url)
 
-            #Utilisation de la fonction scrap_book(url) de la step_1 pour obtenir les informations de chaque livre
+            #Utilisation de la fonction scrap_book(url) de la step_1 pour télécharger les images
             for url in liste_url_livre:
                 books_data = scrap_book(url)
                 if has_images:
                     image_data = get(books_data['image_url']).content
                     print(books_data['image_url'])
-                    with open(f'images/{books_data['title']}.{books_data['image_url'].rsplit('.', 1)[1]}', 'wb') as image:
+                    with open(f'Scraper/images/{books_data['title']}.{books_data['image_url'].rsplit('.', 1)[1]}', 'wb') as image:
                         image.write(image_data)
-                #writer.writerow(books_data)     
-            
+                
             #Vérification d'un bouton "next"
             li = soup.find('li', class_='next')
             if li:
